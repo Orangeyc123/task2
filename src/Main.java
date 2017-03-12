@@ -1,24 +1,21 @@
 /**
- * Created by 小成成 on 2017/2/23.
+ * Created by 小成成 on 2017/3/3.
  */
 import java.util.Random;
 import java.util.Scanner;
+import java.lang.Object;
+import static java.lang.System.exit;
+
 public class Main {
-    public static int res(double result){
-        System.out.println("请输入你的答案：");
-        Scanner r = new Scanner(System.in);
-        double re = r.nextDouble();
-        if(result==re) {
-            System.out.println("回答正确！");
-            return 1;
+    static int count=0;
+    //公约数,辗转相除法
+    public static int CommonDivisor(int m,int n){
+        if(m<n){
+            int temp1;
+            temp1=m;
+            m=n;
+            n=temp1;
         }
-        else {
-            System.out.println("回答错误！");
-            return 0;
-        }
-    }
-    //最大公约数
-    public static int gongyue(int m,int n){
         while (m % n != 0) {
             int temp = m % n;
             m = n;
@@ -26,166 +23,223 @@ public class Main {
         }
         return n;
     }
-    public static int gongbei(int a,int b){
-        int r = a, s = a, t = b;
-        if (a < b) {
-            r = a;
-            a = b;
-            b = r;
-        }
-        while (r != 0) {
-            r = a % b;
-            a = b;
-            b = r;
-        }
-        return s * t / a;
+    //求最小公倍数的方法：两数相乘除以两数的最大公约数
+    public static int CommonMultiple(int num2,int num4 ){
+        return ((num2*num4)/CommonDivisor(num2,num4));
     }
-
-    public static void main(String[] args) {
-        int count = 0;
-        double result = 0;
-        int fz,fm,gbs,gys;
-        int i;
-        for(i=0;i<4;i++) {
-            System.out.println("请选择要生成的运算方式(共4题)");
-            System.out.println("\t1.整数加法\t2.整数减法\t3.整数乘法\t4.整数除法\t5.分数加法\t6.分数减法\t7.分数乘法\t8.分数除法");
-            Scanner sj = new Scanner(System.in);
-            int p = sj.nextInt();
-            Random r = new Random();
-            int a = r.nextInt(10);
-            int b = r.nextInt(10);
-            int c = r.nextInt(10);
-            int d = r.nextInt(10);
-            switch(p){
-                case 1:System.out.println("" + a + " + " + b + " = ?");
-                    result = a + b;
-                    if(res(result)==1){
-                        count++;
-                    }
-                    else
-                        break;
-                    break;
-                case 2:System.out.println("" + a + " - " + b + " = ?");
-                    result = a - b;
-                    if(res(result)==1){
-                        count++;
-                    }
-                    else
-                        break;
-                    break;
-                case 3:System.out.println("" + a + " * " + b + " = ?");
-                    result = a * b;
-                    if(res(result)==1){
-                        count++;
-                    }
-                    else
-                        break;
-                    break;
-                case 4:System.out.println("" + a + " / " + b + " = ?");
-                    if (b != 0) {
-                        float e = a;
-                        float f = b;
-                        result = e / f;
-                    }
-                    else
-                        System.out.println("除数为0，不能计算！");
-                    if(res(result)==1){
-                        count++;
-                    }
-                    else
-                        break;
-                    break;
-                case 5:
-                    System.out.println("" + a + " / " + b + " + " + c +" / "+ d +" = ?");
-                    gbs=gongbei(b,d);
-                    fm=gbs;
-                    fz=a*(gbs/b)+c*(gbs/d);//通分后分子
-                    gys=gongyue(fz,fm);
-                    fz=fz/gys;
-                    fm=fm/gys;
-                    if(fz==0)
-                    {
-                        System.out.println("正确答案是：0");
-                    }
-                    else if(fm==0){
-                        System.out.println("答案不存在！");
-                    }
-                    else if(fz==fm){
-                        System.out.println("正确答案是：1");
-                    }
-                    else{
-                        System.out.println("正确答案是："+ fz + "/" + fm + ".");
-                    }
-                    break;
-                case 6:
-                    System.out.println("" + a + " / " + b + " - " + c +" / "+ d +" = ?");
-                    gbs=gongbei(b,d);
-                    fm=gbs;
-                    fz=a*(gbs/b)-c*(gbs/d);//通分后分子
-                    gys=gongyue(fz,fm);
-                    fz=fz/gys;
-                    fm=fm/gys;
-                    if(fz==0)
-                    {
-                        System.out.println("正确答案是：0");
-                    }
-                    else if(fm==0){
-                        System.out.println("答案不存在！");
-                    }
-                    else if(fz==fm){
-                        System.out.println("正确答案是：1");
-                    }
-                    else{
-                        System.out.println("正确答案是："+ fz + "/" + fm + ".");
-                    }
-                    break;
-                case 7:
-                    System.out.println("" + a + " / " + b + " - " + c +" / "+ d +" = ?");
-                    fz=a*c;
-                    fm=b*d;
-                    gys=gongyue(fz,fm);
-                    fz=fz/gys;
-                    fm=fm/gys;
-                    if(fz==0)
-                    {
-                        System.out.println("正确答案是：0");
-                    }
-                    else if(fm==0){
-                        System.out.println("答案不存在！");
-                    }
-                    else if(fz==fm){
-                        System.out.println("正确答案是：1");
-                    }
-                    else{
-                        System.out.println("正确答案是："+ fz + "/" + fm + ".");
-                    }
-                    break;
-                case 8:
-                    System.out.println("" + a + " / " + b + " - " + c +" / "+ d +" = ?");
-                    fz=a*d;
-                    fm=b*c;
-                    gys=gongyue(fz,fm);
-                    fz=fz/gys;
-                    fm=fm/gys;
-                    if(fz==0)
-                    {
-                        System.out.println("正确答案是：0");
-                    }
-                    else if(fm==0){
-                        System.out.println("答案不存在！");
-                    }
-                    else if(fz==fm){
-                        System.out.println("正确答案是：1");
-                    }
-                    else{
-                        System.out.println("正确答案是："+ fz + "/" + fm + ".");
-                    }
-                    break;
-                default:
-                    main(null);
+    //判断真分数加减乘除运算
+    public static void judge4(int num1,int num2,int num3,int num4,int UserChoice){
+        int ComMul,up,down,flag=0;//flag标记负数
+        System.out.print("请输入你的答案：");
+        Scanner input4 = new Scanner(System.in);
+        String UserResult2 = input4.next();
+        if(UserChoice==5||UserChoice==6){
+            ComMul=CommonMultiple(num2,num4);
+            num1=num1*(ComMul/num2);
+            num3=num3*(ComMul/num4);
+            if(UserChoice==5){
+                up=num1+num3;
+                judge2(up,ComMul,UserResult2,flag);
+            }
+            else{
+                up=num1-num3;
+                if(up<0){
+                    up=-up;
+                    flag=1;
+                }
+                judge2(up,ComMul,UserResult2,flag);
             }
         }
-        float j = (float) count/4;
-        System.out.println("共做对"+count+"题，正确率为"+j*100+"%");
+        else if(UserChoice==7||UserChoice==8){
+            if(num1==0||num3==0||(num1==0&&num3==0)){
+                if(UserResult2.equals("0")){
+                    System.out.println("正确答案是0,回答正确！");
+                    count++;
+                }
+                else{
+                    System.out.println("正确答案是0,回答错误！");
+                }
+                return ;
+            }
+            if(UserChoice==7){
+                up=num1*num3;
+                down=num2*num4;
+                judge2(up,down,UserResult2,flag);
+            }
+            else{
+                up=num1*num4;
+                down=num2*num3;
+                judge2(up,down,UserResult2,flag);
+            }
+        }
+    }
+    //整数加减乘法的计算结果及其判断
+    public static void judge1(int result){
+        String Sresult = String.valueOf(result);
+        System.out.print("请输入你的答案：");
+        Scanner input2 = new Scanner(System.in);
+        String UserResult = input2.next();
+        if (Sresult.equals(UserResult)) {
+            System.out.println("正确答案是" + result + ",回答正确！");
+            count=count+1;
+        } else {
+            System.out.println("正确答案是" + result + ",回答错误！");
+        }
+    }
+    //整数除法计算结果及其判断
+    public static void judge2(int num1,int num2,String UserResult,int flag){
+        int ComDiv;//最大公约数
+        ComDiv=CommonDivisor(num1,num2);
+        String DivResult;
+        num1=num1/ComDiv;
+        num2=num2/ComDiv;
+
+        if(num2==1){
+            if(flag==0)
+                DivResult=String.valueOf(num1);
+            else
+                DivResult=String.valueOf("-"+num1);
+        }
+        else{
+            if(flag==0)
+                DivResult=String.valueOf(num1+"/"+num2);
+            else
+                DivResult=String.valueOf("-"+num1+"/"+num2);
+        }
+        if(UserResult.equals(DivResult)){
+            System.out.println("正确答案是" + DivResult + ",回答正确！");
+            count++;
+        } else {
+            System.out.println("正确答案是" + DivResult + ",回答错误！");
+        }
+    }
+    //保证分母不为0，也不出现类似5/5的算式
+    public static int num2judge(int num1,int num2){
+        if(num1==num2||num2==0){
+            num2++;
+        }
+        return num2;
+    }
+    public static int num4judge(int num3,int num4){
+        if(num3==num4||num4==0){
+            num4++;
+        }
+        return num4;
+    }
+    public static void main(String[] args){
+        int result = 0;//整数加减乘法
+        double right;
+        int i;//循环次数
+        for(i=1;i<11;i++) {
+            System.out.println("请选择要生成的运算方式(共10题)");
+            System.out.println("\t1.整数加法\t2.整数减法\t3.整数乘法\t4.整数除法\t5.真分数加法\t6.真分数减法\t7.真分数乘法\t8.真分数除法\t9.退出");
+            Scanner input1 = new Scanner(System.in);
+            int UserChoice = input1.nextInt();
+            Random number = new Random();//随机生成随机数
+            int num1 = number.nextInt(10);//分子
+            int num2 = number.nextInt(10);//分母
+            int num3 = number.nextInt(10);//分子
+            int num4 = number.nextInt(10);//分母
+            switch(UserChoice) {
+                case 1:
+                    System.out.println("第"+i+"题："+ num1 + " + " + num2 + " = ?");
+                    result = num1 + num2;//得到随机数a,b相加的结果.
+                    judge1(result);
+                    break;
+                case 2:
+                    System.out.println("第"+i+"题："+ num1 + " - " + num2 + " = ?");
+                    result = num1 - num2;//得到随机数a,b相加的结果.
+                    judge1(result);
+                    break;
+                case 3:
+                    System.out.println("第"+i+"题："+ num1 + " × " + num2 + " = ?");
+                    result = num1 * num2;//得到随机数a,b相加的结果.
+                    judge1(result);
+                    break;
+                case 4:
+                    System.out.println("第"+i+"题："+ num1 + " ÷ " + (num2+1) + " = ?");//num2+1防止分母为0
+                    System.out.print("请输入你的答案：");
+                    Scanner input3 = new Scanner(System.in);
+                    String UserResult1 = input3.next();
+                    judge2(num1,num2+1,UserResult1,0);
+                    break;
+                case 5:
+                    num2=num2judge(num1,num2);
+                    num4=num4judge(num3,num4);
+                    if(num2==1&&num4!=1){
+                        System.out.println("第"+i+"题："+ num1 + " + " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    else if(num2!=1&&num4==1){
+                        System.out.println("第"+i+"题："+ " ( " + num1 + " / " + num2 + " ) +" + num3 + " = ?");
+                    }
+                    else if(num2==1&&num4==1){
+                        System.out.println("第"+i+"题："+ num1 + " + " + num3 + " = ?");
+                    }
+                    else{
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) + " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    judge4(num1,num2,num3,num4,UserChoice);
+                    break;
+                case 6://除法
+                    num2=num2judge(num1,num2);
+                    num4=num4judge(num3,num4);
+                    if(num2==1&&num4!=1){
+                        System.out.println("第"+i+"题："+num1 + " - " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    else if(num2!=1&&num4==1){
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) -" + num3 + " = ?");
+                    }
+                    else if(num2==1&&num4==1){
+                        System.out.println("第"+i+"题："+num1 + " - " + num3 + " = ?");
+                    }
+                    else{
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) - " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    judge4(num1,num2,num3,num4,UserChoice);
+                    break;
+                case 7:
+                    num2=num2judge(num1,num2);
+                    num4=num4judge(num3,num4);
+                    if(num2==1&&num4!=1){
+                        System.out.println("第"+i+"题："+num1 + " * " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    else if(num2!=1&&num4==1){
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) *" + num3 + " = ?");
+                    }
+                    else if(num2==1&&num4==1){
+                        System.out.println("第"+i+"题："+num1 + " * " + num3 + " = ?");
+                    }
+                    else{
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) * " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    judge4(num1,num2,num3,num4,UserChoice);
+                    break;
+                case 8:
+                    num2=num2judge(num1,num2);
+                    num4=num4judge(num3,num4);
+                    if(num2==1&&num4!=1){
+                        System.out.println("第"+i+"题："+num1 + " ÷ " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    else if(num2!=1&&num4==1){
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) ÷" + num3 + " = ?");
+                    }
+                    else if(num2==1&&num4==1){
+                        System.out.println("第"+i+"题："+num1 + " ÷ " + num3 + " = ?");
+                    }
+                    else{
+                        System.out.println("第"+i+"题："+" ( " + num1 + " / " + num2 + " ) ÷ " + " ( " + num3 + " / " + num4 + " ) = ?");
+                    }
+                    judge4(num1,num2,num3,num4,UserChoice);
+                    break;
+                case 9:
+                    right=(double)count/(double)(i-1)*100;
+                    System.out.println("你已做完"+(i-1)+"道，做对"+count+"道，正确率为："+right+"%");
+                    exit(0);
+            }
+            if(i==10){
+                right=(double)count/(double)i*100;
+                System.out.println("你已做完"+i+"道，做对"+count+"道，正确率为："+right+"%");
+            }
+        }
     }
 }
